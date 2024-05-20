@@ -1,0 +1,53 @@
+<!-- Header -->
+<header id="header" class="bg-white">
+  <nav class="container mx-auto flex justify-between items-center py-8 px-4">
+    <!-- App Name -->
+    <a class="text-3xl text-indigo-400 font-bold uppercase mr-4" routerLink="/">Your Platform</a>
+
+    <!-- Hamburger Menu Icon -->
+    <div class="block lg:hidden">
+      <button class="text-indigo-400 focus:outline-none" (click)="toggleMenu()">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path>
+        </svg>
+      </button>
+    </div>
+
+    <!-- Primary Navigation -->
+    <div [ngClass]="{'block': menuOpen, 'hidden': !menuOpen}" class="w-full lg:flex lg:items-center lg:w-auto">
+      <ul class="flex flex-col lg:flex-row mt-1 lg:mt-0 lg:ml-auto">
+        <!-- Navigation Links -->
+        <li *ngIf="!(auth.isAuthenticated$ | async); else authLinks" class="mt-2 lg:mt-0">
+          <a class="px-2" href="#" (click)="openModal($event)">Login / Register</a>
+        </li>
+        <ng-template #authLinks>
+          <li class="mt-2 lg:mt-0">
+            <a class="px-2" routerLink="/manage" routerLinkActive="text-indigo-400"
+              [routerLinkActiveOptions]="{ exact: true }" [queryParams]="{ sort: '1' }">
+              Manage
+            </a>
+          </li>
+          <li class="mt-2 lg:mt-0">
+            <a class="px-2" routerLink="/upload" routerLinkActive="text-indigo-400"
+              [routerLinkActiveOptions]="{ exact: true }">
+              Upload-Videos
+            </a>
+          </li>
+          <li class="mt-2 lg:mt-0">
+            <a class="px-2" routerLink="/fileupload" routerLinkActive="text-indigo-400"
+              [routerLinkActiveOptions]="{ exact: true }">
+              Upload-Files
+            </a>
+          </li>
+          <li class="mt-2 lg:mt-0">
+            <a class="px-2" href="#" (click)="auth.logout($event)">Logout</a>
+          </li>
+        </ng-template>
+        <li routerLinkActive="text-indigo-400" class="mt-2 lg:mt-0">
+          <a class="px-2" routerLink="/about" routerLinkActive="text-indigo-400">About</a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+</header>
+
